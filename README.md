@@ -1,16 +1,48 @@
-# React + Vite
+# Vijet's Portfolio: The Terminal Interface
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A unique, interactive portfolio built with **React** that simulates a classic command-line interface (CLI). Navigate my projects, skills, and resume by typing simple commands.
 
-Currently, two official plugins are available:
+## 🚀 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🌐 ****
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+* **💻 Authentic Terminal Emulation:** Built using `react-console-emulator` for a truly interactive CLI experience.
+* **📚 Command History & Navigation:** Use the **Up** and **Down** arrow keys to cycle through past commands.
+* **🛠️ Custom Commands:** Dedicated commands to retrieve key portfolio information (e.g., `projects`, `resume`).
+* **🤣 API Integration (Jokes):** Integrates with a public jokes API to provide a fun, real-time feature.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## ⚙️ Technologies Used
+
+| Category | Technology | Purpose |
+| :--- | :--- | :--- |
+| **Frontend** | React, JavaScript | Core application framework. |
+| **Terminal** | `react-console-emulator` | Component for the CLI UI and command handling. |
+| **Styling** | TailwindCSS | Customizing the terminal look and feel. |
+| **API** | JokeAPI / Official Joke API | Fetching random programming jokes. |
+| **Deployment** | Netlify | Hosting the live application. |
+
+---
+
+## 📋 Commands
+
+Here is a list of commands you can run in the terminal:
+
+| Command | Description | Example Output |
+| :--- | :--- | :--- |
+| `help` | Displays a list of all available commands. | `help` |
+| `about` | Learn more about my background, passion, and experience. | `My name is [Your Name] and I specialize in...` |
+| `skills` | Showcases my core technical competencies. | `React, Node.js, TypeScript, SQL...` |
+| `projects` | Lists my key projects and how to view them. | `Project-A: [URL], Project-B: [URL]` |
+| `resume` | Provides a link to download my full professional resume. | `Downloading resume.pdf...` |
+| `contact` | Displays my email and social media links. | `Email: me@example.com` |
+| `joke` | **API Feature!** Fetches a random programming joke. | `Why do programmers prefer dark mode? Because light attracts bugs!` |
+| `clear` | Clears the entire terminal output screen. | |
+| `whoami` | Displays all the details about me **In a fancy manner!!**
+
+---
