@@ -12,12 +12,57 @@ function getCommands(terminalRef, currentSection, setCurrentSection) {
         if (dirs[section]) return dirs[section].map(x => x + (dirs[x] && dirs[x].length ? '/' : '')).join('  ') || '(empty)';
         return '(empty)';
     }
+    const aboutFn = () => `Hi, I am Vijeth Hegde, a passionate developer!\nI love building web apps and exploring new tech.`;
+    const whoamiText = `👋 Hi! I'm Vijeth Hegde, a passionate Full Stack Developer from India.\n\nI love building interactive web apps, exploring new tech, and solving real-world problems with code.\n\nSkills: JavaScript, React, Node.js, Python, CSS, Tailwind CSS, REST APIs, and more.\nInterests: UI/UX, open source, terminal UIs, and AI.\nCurrently: Working on cool projects and always learning!\n\nContact: vijethegde604@gmail.com | linkedin.com/in/vijeth-hegde | github.com/VijetHegde604\n\n“Always hacking, always learning.”`;
+    const whoamiFn = function () {
+        const id = `whoami-anim-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+        setTimeout(() => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const text = whoamiText;
+            let i = 0;
+            let cursorVisible = true;
+            function getDelay(char) {
+                if (char === '\n') return 180 + Math.random() * 60;
+                if (/[.,!?]/.test(char)) return 120 + Math.random() * 60;
+                if (char === ' ') return 30 + Math.random() * 30;
+                return 14 + Math.random() * 22;
+            }
+            function type() {
+                if (!el) return;
+                if (i <= text.length) {
+                    el.innerHTML = text.slice(0, i).replace(/\n/g, '<br>') + `<span style='color:#38bdf8;font-weight:bold;'>${cursorVisible ? '▍' : '&nbsp;'}</span>`;
+                    let delay = getDelay(text[i - 1] || '');
+                    i++;
+                    setTimeout(type, delay);
+                } else {
+                    // After typing, keep blinking the cursor for a while
+                    let blinkCount = 0;
+                    function blink() {
+                        if (!el) return;
+                        cursorVisible = !cursorVisible;
+                        el.innerHTML = text.replace(/\n/g, '<br>') + `<span style='color:#38bdf8;font-weight:bold;'>${cursorVisible ? '▍' : '&nbsp;'}</span>`;
+                        blinkCount++;
+                        if (blinkCount < 16) setTimeout(blink, 350);
+                        else el.innerHTML = text.replace(/\n/g, '<br>');
+                    }
+                    setTimeout(blink, 350);
+                }
+            }
+            type();
+        }, 80);
+        // No bubble, just plain terminal output
+        return `<span id='${id}'></span>`;
+    };
     return {
         echo: {
             description: 'Prints the input text', usage: 'echo [text]', fn: (...args) => args.length ? args.join(' ') : ''
         },
         about: {
-            description: 'About me', usage: 'about', fn: () => `Hi, I am Vijeth Hegde, a passionate developer!\nI love building web apps and exploring new tech.`
+            description: 'About me', usage: 'about', fn: aboutFn
+        },
+        whoami: {
+            description: 'Show all details about me', usage: 'whoami', fn: whoamiFn
         },
         skills: {
             description: 'List of my skills', usage: 'skills', fn: () => `Skills:\n- JavaScript\n- React\n- Node.js\n- CSS\n- Tailwind CSS\n- Python`
