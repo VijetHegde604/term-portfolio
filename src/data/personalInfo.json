@@ -1,0 +1,54 @@
+{
+  "name": "Vijet Hegde",
+  "shortDescription": "A passionate developer!",
+  "fullDescription": "Hi, I am Vijet Hegde, a passionate developer!\nI love building web apps and exploring new tech.",
+  "whoami": " 👋  I'm Vijet Hegde — a passionate Full Stack Web Developer & Linux Enthusiast from India.\nI build fast, interactive web apps and love automating workflows using Docker, DevOps tools, and a touch of code magic.\nSkilled in JavaScript, React, Node.js, Python, Tailwind CSS, REST APIs, and Linux.\nI'm deeply into UI/UX, open source, Free Software, and all things automation.\nCurrently working on cool projects, breaking things, fixing them again, and always learning.\n\n📧  vijethegde604@gmail.com\n🔗  linkedin.com/in/vijeth-hegde\n💻  github.com/VijetHegde604\n🚀  Let's connect and create something awesome together!",
+  "skills": [
+    "JavaScript",
+    "React",
+    "Node.js",
+    "CSS",
+    "Tailwind CSS",
+    "Python",
+    "Docker",
+    "DevOps",
+    "Linux",
+    "Git"
+  ],
+  "projects": [
+    {
+      "name": "Terminal Portfolio (this!)",
+      "description": "A terminal-style portfolio website",
+      "githubUrl": "https://github.com/VijetHegde604/term-portfolio",
+      "demoUrl": ""
+    },
+    {
+      "name": "Project 2",
+      "description": "Description of project 2",
+      "githubUrl": "https://github.com/VijetHegde604/project2",
+      "demoUrl": ""
+    },
+    {
+      "name": "Project 3",
+      "description": "Description of project 3",
+      "githubUrl": "https://github.com/VijetHegde604/project3",
+      "demoUrl": ""
+    }
+  ],
+  "contact": {
+    "email": "vijethegde604@gmail.com",
+    "linkedin": "https://linkedin.com/in/vijeth-hegde",
+    "github": "https://github.com/VijetHegde604"
+  },
+  "commands": {
+    "suggestions": [
+      "help",
+      "cat",
+      "whoami",
+      "about",
+      "projects",
+      "contact"
+    ]
+  }
+}
+
