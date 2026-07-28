@@ -25,8 +25,8 @@ function getCommands(terminalRef, currentSection, setCurrentSection, personalInf
     };
 
     const dirs = {
-        root: ['about', 'education', 'skills', 'experience', 'projects', 'publications', 'achievements', 'contact', 'resume', 'tour', 'simple', 'play', 'fastfetch', 'neofetch', 'cat', 'matrix', 'joke'],
-        about: [], education: [], skills: [], experience: [], projects: [], publications: [], achievements: [], contact: [], resume: [], tour: [], simple: [], play: [], fastfetch: [], neofetch: [], cat: [], matrix: [], joke: [],
+        root: ['about', 'education', 'skills', 'experience', 'projects', 'publications', 'achievements', 'contact', 'resume', 'tour', 'simple', 'play', 'cat', 'matrix', 'joke'],
+        about: [], education: [], skills: [], experience: [], projects: [], publications: [], achievements: [], contact: [], resume: [], tour: [], simple: [], play: [], cat: [], matrix: [], joke: [],
     };
     function getLs(section) {
         if (dirs[section]) return dirs[section].map(x => x + (dirs[x] && dirs[x].length ? '/' : '')).join('  ') || '(empty)';
@@ -75,13 +75,15 @@ function getCommands(terminalRef, currentSection, setCurrentSection, personalInf
         return section('Contact', `• Email: <a href="mailto:${email}">${email}</a>\n• Phone: ${phone}\n• LinkedIn: ${link(linkedin, 'linkedin.com/in/vijeth-hegde')}\n• GitHub: ${link(github, 'github.com/VijetHegde604')}`);
     };
     const friendlyTourFn = () => `<div class="friendly-card">
-  <div class="friendly-kicker">Not a terminal person? Start here ✨</div>
-  <div class="friendly-title">Pick a path and type the highlighted word.</div>
+  <div class="friendly-kicker">Welcome! Click any highlighted word to explore.</div>
+  <div class="friendly-title">No typing needed — just click what interests you.</div>
   <div class="friendly-grid">
-    <div><strong>👋 Meet me</strong><code>simple</code><span>A plain-English intro without tech overload.</span></div>
-    <div><strong>🧭 Quick snapshot</strong><code>fastfetch</code><span>A beautiful dashboard-style summary.</span></div>
-    <div><strong>🛠️ What I build</strong><code>projects</code><span>Real apps, ML ideas, and developer tooling.</span></div>
-    <div><strong>🎈 Have fun</strong><code>play</code><span>Try a tiny easter egg and a few friendly prompts.</span></div>
+    <div><strong>Who I am</strong><code>simple</code><span>A plain-English intro, no jargon.</span></div>
+    <div><strong>My work</strong><code>projects</code><span>Apps, tools, and ML systems I have built.</span></div>
+    <div><strong>My background</strong><code>experience</code><span>Where I have worked and what I did.</span></div>
+    <div><strong>Get in touch</strong><code>contact</code><span>Email, phone, LinkedIn, and GitHub.</span></div>
+    <div><strong>Everything at once</strong><code>resume</code><span>Full profile in one view.</span></div>
+    <div><strong>Have fun</strong><code>play</code><span>Easter eggs, cat pics, and jokes.</span></div>
   </div>
 </div>`;
     const simpleFn = () => `<div class="friendly-card friendly-card--warm">
@@ -89,54 +91,21 @@ function getCommands(terminalRef, currentSection, setCurrentSection, personalInf
   <div class="friendly-title">I build useful software that feels fast, reliable, and easy to use.</div>
   <p>Think of me as someone who connects the visible app people click with the invisible systems that store data, answer requests, and make smart features work.</p>
   <div class="friendly-grid">
-    <div><strong>🌐 Web apps</strong><span>Interfaces people can use comfortably.</span></div>
-    <div><strong>⚙️ Backends</strong><span>The engine room that keeps apps running.</span></div>
-    <div><strong>🤖 AI/ML</strong><span>Features that recognize, classify, or recommend.</span></div>
-    <div><strong>🐧 Linux/dev tools</strong><span>Clean setups that make development smoother.</span></div>
+    <div><strong>Web apps</strong><span>Interfaces people can use comfortably.</span></div>
+    <div><strong>Backends</strong><span>The engine room that keeps apps running.</span></div>
+    <div><strong>AI / ML</strong><span>Features that recognize, classify, or recommend.</span></div>
+    <div><strong>Linux / dev tools</strong><span>Clean setups that make development smoother.</span></div>
   </div>
+  <div style="margin-top:10px;color:#94a3b8;font-size:0.88em;">Next: click <code>projects</code> or <code>contact</code></div>
 </div>`;
     const playFn = () => `<div class="friendly-card playful-card">
-  <div class="friendly-kicker">Achievement unlocked 🕹️</div>
-  <div class="friendly-title">You found the playful corner.</div>
-  <p>Try <code>cat</code>, <code>cat says hire Vijet</code>, <code>joke</code>, or <code>matrix</code>. If you are short on time, type <code>contact</code> and say hello.</p>
+  <div class="friendly-kicker">You found the playful corner</div>
+  <div class="friendly-title">Try clicking any command below.</div>
+  <p><code>cat</code>  <code>cat says hire Vijet</code>  <code>joke</code>  <code>matrix</code></p>
+  <p style="color:#94a3b8;font-size:0.88em;">Short on time? Click <code>contact</code> and say hello.</p>
   <pre>   (づ｡◕‿‿◕｡)づ  thanks for exploring!</pre>
 </div>`;
-    const fastfetchFn = () => {
-        const skills = safeGet(safeInfo, 'skills', []);
-        const skillGroups = safeGet(safeInfo, 'skillGroups', []);
-        const projects = safeGet(safeInfo, 'projects', []);
-        const education = safeGet(safeInfo, 'education.0.degree', 'Computer Science');
-        const firstName = safeGet(safeInfo, 'name', 'Developer').split(' ')[0];
-        const stackLine = Array.isArray(skillGroups) && skillGroups.length
-            ? skillGroups.slice(0, 3).map(group => `${group.category}: ${group.items.slice(0, 4).join(', ')}`).join(' · ')
-            : Array.isArray(skills) ? skills.slice(0, 8).join(' · ') : 'React · APIs · Linux';
-        const projectLine = Array.isArray(projects) ? projects.map(project => project.name).slice(0, 3).join(' / ') : 'Portfolio';
-        const highlights = [
-            ['Role', safeGet(safeInfo, 'title', 'Engineer')],
-            ['Location', safeGet(safeInfo, 'location', 'Earth')],
-            ['Education', education],
-            ['Stack', stackLine],
-            ['Projects', projectLine],
-            ['Contact', safeGet(safeInfo, 'contact.email', 'N/A')]
-        ];
 
-        const logo = String.raw`__   __ _  _
-\ \ / /| || |   ${firstName.toLowerCase()}@portfolio
- \   / | __ |   ─────────────────────
-  \_/  |_||_|   uptime  building useful software
-      ▄████▄     shell   portfolio.sh
-     ██▀  ▀██    theme   aurora glass + CRT glow
-     ██▄▄▄▄██    status  open to great teams
-      ▀████▀`;
-
-        return `<div class="fastfetch-card">
-<pre class="fastfetch-logo">${logo}</pre>
-<div class="fastfetch-info">
-  ${highlights.map(([label, value]) => `<div><span>${label}</span><p>${value}</p></div>`).join('')}
-  <div class="fastfetch-palette" aria-label="terminal color palette"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-</div>
-</div>`;
-    };
     const whoamiText = safeGet(safeInfo, 'whoami', 'Personal information');
     const whoamiFn = function () {
         const id = `whoami-anim-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
@@ -269,12 +238,7 @@ function getCommands(terminalRef, currentSection, setCurrentSection, personalInf
         play: {
             description: 'Playful easter eggs and fun prompts', usage: 'play', fn: playFn
         },
-        fastfetch: {
-            description: 'Beautiful system-style portfolio summary', usage: 'fastfetch', fn: fastfetchFn
-        },
-        neofetch: {
-            description: 'Alias for fastfetch', usage: 'neofetch', fn: fastfetchFn
-        },
+
         date: {
             description: 'Show current date and time', usage: 'date', fn: () => new Date().toLocaleString()
         },
@@ -346,7 +310,29 @@ function getCommands(terminalRef, currentSection, setCurrentSection, personalInf
                     return `❌ Error: ${e.message}`;
                 }
             }
-        }
+        },
+        cls: {
+            description: 'Clear terminal screen', usage: 'cls', fn: () => {
+                if (terminalRef.current && typeof terminalRef.current.clearStdout === 'function') {
+                    terminalRef.current.clearStdout();
+                }
+                return '';
+            }
+        },
+        hi: { description: 'Alias for tour', usage: 'hi', fn: friendlyTourFn },
+        hello: { description: 'Alias for tour', usage: 'hello', fn: friendlyTourFn },
+        hey: { description: 'Alias for tour', usage: 'hey', fn: friendlyTourFn },
+        start: { description: 'Alias for tour', usage: 'start', fn: friendlyTourFn },
+        menu: { description: 'Alias for tour', usage: 'menu', fn: friendlyTourFn },
+        work: { description: 'Alias for experience', usage: 'work', fn: experienceFn },
+        jobs: { description: 'Alias for experience', usage: 'jobs', fn: experienceFn },
+        cv: { description: 'Alias for resume', usage: 'cv', fn: () => [aboutFn(), educationFn(), skillsFn(), experienceFn(), projectsFn(), publicationsFn(), achievementsFn(), contactFn()].join('\n\n') },
+        mail: { description: 'Alias for contact', usage: 'mail', fn: contactFn },
+        email: { description: 'Alias for contact', usage: 'email', fn: contactFn },
+        phone: { description: 'Alias for contact', usage: 'phone', fn: contactFn },
+        tech: { description: 'Alias for skills', usage: 'tech', fn: skillsFn },
+        stack: { description: 'Alias for skills', usage: 'stack', fn: skillsFn },
+        portfolio: { description: 'Alias for projects', usage: 'portfolio', fn: projectsFn }
     };
 }
 
@@ -356,6 +342,30 @@ export default function TerminalEmu() {
     const commands = getCommands(terminalRef, currentSection, setCurrentSection, personalInfo);
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
+
+    // Helper to execute commands programmatically
+    const executeCommand = (cmdName) => {
+        if (!cmdName) return;
+        const cleanCmd = cmdName.trim().replace(/^['"`]|['"`]$/g, '');
+        if (terminalRef.current) {
+            if (terminalRef.current.terminalInput && terminalRef.current.terminalInput.current) {
+                terminalRef.current.terminalInput.current.value = cleanCmd;
+            }
+            if (typeof terminalRef.current.processCommand === 'function') {
+                terminalRef.current.processCommand();
+                return;
+            }
+        }
+        const input = document.querySelector('.react-console-emulator__input') ||
+            document.querySelector('textarea') ||
+            document.querySelector('input[type="text"]');
+        if (input) {
+            input.value = cleanCmd;
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            const event = new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', keyCode: 13, bubbles: true });
+            input.dispatchEvent(event);
+        }
+    };
 
     // Autofocus input on page load
     useEffect(() => {
@@ -482,13 +492,25 @@ export default function TerminalEmu() {
         };
     }, [commands, suggestions]);
 
-    // Handle link clicks in terminal output
+    // Handle clicks for command code tags and links in terminal output
     useEffect(() => {
         const handleClick = (e) => {
+            // Clickable code tags run the command they contain
+            const codeEl = e.target.closest('code, [data-cmd]');
+            if (codeEl) {
+                const rawCmd = codeEl.getAttribute('data-cmd') || codeEl.textContent.trim();
+                if (rawCmd) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    executeCommand(rawCmd);
+                    return;
+                }
+            }
+
+            // External links open in new tab
             const link = e.target.closest('a');
             if (link && link.href) {
                 const url = link.getAttribute('href');
-                // Only prevent default if it's not a protocol link (has://)
                 if (url && url.includes('://')) {
                     window.open(url, '_blank', 'noopener,noreferrer');
                 } else if (url && url.startsWith('mailto:')) {
@@ -497,7 +519,8 @@ export default function TerminalEmu() {
             }
         };
 
-        const container = document.querySelector('.react-console-emulator');
+        // react-console-emulator uses name attribute, not class
+        const container = document.querySelector('[name="react-console-emulator"]') || document.querySelector('.terminal-shell');
         if (container) {
             container.addEventListener('click', handleClick);
             return () => container.removeEventListener('click', handleClick);
@@ -515,7 +538,7 @@ export default function TerminalEmu() {
                     commands={commands}
                     autoFocus={true}
                     welcomeMessage={
-                        `╭─ ${personalInfo?.name || 'Developer'} · Terminal Portfolio\n│  ${personalInfo?.shortDescription || ''}\n╰─ Type 'help' for commands or 'resume' for the full overview.\n\nNew here? type tour · simple · fastfetch · projects · cat\n`
+                        `╭─ ${personalInfo?.name || 'Developer'} · Terminal Portfolio\n│  ${personalInfo?.shortDescription || ''}\n╰─ Click any highlighted word below, or type a command.\n\n  <code>tour</code>  Start here    <code>simple</code>  Who I am    <code>projects</code>  My work    <code>contact</code>  Reach me\n  <code>resume</code>  Full profile  <code>experience</code>  Career  <code>skills</code>  Tech stack  <code>help</code>  All commands\n`
                     }
                     promptSymbol={'> '}
                     dangerMode={true}
@@ -568,11 +591,7 @@ export default function TerminalEmu() {
                                         e.target.style.borderColor = idx === 0 ? '#7dd3fc' : 'transparent';
                                     }}
                                     onClick={() => {
-                                        const input = document.querySelector('.react-console-emulator__input');
-                                        if (input) {
-                                            input.value = suggestion;
-                                            input.dispatchEvent(new Event('input', { bubbles: true }));
-                                        }
+                                        executeCommand(suggestion);
                                         setShowSuggestions(false);
                                     }}
                                 >
