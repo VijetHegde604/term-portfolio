@@ -103,29 +103,37 @@ function getCommands(terminalRef, currentSection, setCurrentSection, personalInf
 </div>`;
     const fastfetchFn = () => {
         const skills = safeGet(safeInfo, 'skills', []);
+        const skillGroups = safeGet(safeInfo, 'skillGroups', []);
         const projects = safeGet(safeInfo, 'projects', []);
         const education = safeGet(safeInfo, 'education.0.degree', 'Computer Science');
         const firstName = safeGet(safeInfo, 'name', 'Developer').split(' ')[0];
-        const stackLine = Array.isArray(skills) ? skills.slice(0, 8).join(' · ') : 'React · APIs · Linux';
+        const stackLine = Array.isArray(skillGroups) && skillGroups.length
+            ? skillGroups.slice(0, 3).map(group => `${group.category}: ${group.items.slice(0, 4).join(', ')}`).join(' · ')
+            : Array.isArray(skills) ? skills.slice(0, 8).join(' · ') : 'React · APIs · Linux';
         const projectLine = Array.isArray(projects) ? projects.map(project => project.name).slice(0, 3).join(' / ') : 'Portfolio';
+        const highlights = [
+            ['Role', safeGet(safeInfo, 'title', 'Engineer')],
+            ['Location', safeGet(safeInfo, 'location', 'Earth')],
+            ['Education', education],
+            ['Stack', stackLine],
+            ['Projects', projectLine],
+            ['Contact', safeGet(safeInfo, 'contact.email', 'N/A')]
+        ];
 
-        const logo = String.raw`      /\
-     /  \     ${firstName.toLowerCase()}@portfolio
-    / /\ \    ─────────────────
-   / ____ \   OS      Terminal Portfolio
-  /_/    \_\  Host    ${safeGet(safeInfo, 'location', 'Earth')}
-  \ \  / /     Kernel  React ${React.version}
-   \ \/ /      Shell   portfolio.sh
-    \____/       Role    ${safeGet(safeInfo, 'title', 'Engineer')}`;
+        const logo = String.raw`__   __ _  _
+\ \ / /| || |   ${firstName.toLowerCase()}@portfolio
+ \   / | __ |   ─────────────────────
+  \_/  |_||_|   uptime  building useful software
+      ▄████▄     shell   portfolio.sh
+     ██▀  ▀██    theme   aurora glass + CRT glow
+     ██▄▄▄▄██    status  open to great teams
+      ▀████▀`;
 
         return `<div class="fastfetch-card">
 <pre class="fastfetch-logo">${logo}</pre>
 <div class="fastfetch-info">
-  <div><span>Education</span>${education}</div>
-  <div><span>Stack</span>${stackLine}</div>
-  <div><span>Projects</span>${projectLine}</div>
-  <div><span>Contact</span>${safeGet(safeInfo, 'contact.email', 'N/A')}</div>
-  <div class="fastfetch-palette"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  ${highlights.map(([label, value]) => `<div><span>${label}</span><p>${value}</p></div>`).join('')}
+  <div class="fastfetch-palette" aria-label="terminal color palette"><i></i><i></i><i></i><i></i><i></i><i></i></div>
 </div>
 </div>`;
     };
@@ -306,7 +314,7 @@ function getCommands(terminalRef, currentSection, setCurrentSection, personalInf
             fn: async function (...args) {
                 try {
                     const command = args.join(' ').toLowerCase();
-                    let options = {};
+                    let options = { width: 360, height: 260, fontSize: 32 };
 
                     // Parse command arguments
                     if (command.includes('gif')) {
