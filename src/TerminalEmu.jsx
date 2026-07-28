@@ -25,8 +25,8 @@ function getCommands(terminalRef, currentSection, setCurrentSection, personalInf
     };
 
     const dirs = {
-        root: ['about', 'education', 'skills', 'experience', 'projects', 'publications', 'achievements', 'contact', 'resume', 'cat', 'matrix', 'joke'],
-        about: [], education: [], skills: [], experience: [], projects: [], publications: [], achievements: [], contact: [], resume: [], cat: [], matrix: [], joke: [],
+        root: ['about', 'education', 'skills', 'experience', 'projects', 'publications', 'achievements', 'contact', 'resume', 'tour', 'simple', 'play', 'fastfetch', 'neofetch', 'cat', 'matrix', 'joke'],
+        about: [], education: [], skills: [], experience: [], projects: [], publications: [], achievements: [], contact: [], resume: [], tour: [], simple: [], play: [], fastfetch: [], neofetch: [], cat: [], matrix: [], joke: [],
     };
     function getLs(section) {
         if (dirs[section]) return dirs[section].map(x => x + (dirs[x] && dirs[x].length ? '/' : '')).join('  ') || '(empty)';
@@ -73,6 +73,61 @@ function getCommands(terminalRef, currentSection, setCurrentSection, personalInf
         const github = safeGet(safeInfo, 'contact.github', '#');
         const phone = safeGet(safeInfo, 'contact.phone', 'N/A');
         return section('Contact', `• Email: <a href="mailto:${email}">${email}</a>\n• Phone: ${phone}\n• LinkedIn: ${link(linkedin, 'linkedin.com/in/vijeth-hegde')}\n• GitHub: ${link(github, 'github.com/VijetHegde604')}`);
+    };
+    const friendlyTourFn = () => `<div class="friendly-card">
+  <div class="friendly-kicker">Not a terminal person? Start here ✨</div>
+  <div class="friendly-title">Pick a path and type the highlighted word.</div>
+  <div class="friendly-grid">
+    <div><strong>👋 Meet me</strong><code>simple</code><span>A plain-English intro without tech overload.</span></div>
+    <div><strong>🧭 Quick snapshot</strong><code>fastfetch</code><span>A beautiful dashboard-style summary.</span></div>
+    <div><strong>🛠️ What I build</strong><code>projects</code><span>Real apps, ML ideas, and developer tooling.</span></div>
+    <div><strong>🎈 Have fun</strong><code>play</code><span>Try a tiny easter egg and a few friendly prompts.</span></div>
+  </div>
+</div>`;
+    const simpleFn = () => `<div class="friendly-card friendly-card--warm">
+  <div class="friendly-kicker">Plain-English version</div>
+  <div class="friendly-title">I build useful software that feels fast, reliable, and easy to use.</div>
+  <p>Think of me as someone who connects the visible app people click with the invisible systems that store data, answer requests, and make smart features work.</p>
+  <div class="friendly-grid">
+    <div><strong>🌐 Web apps</strong><span>Interfaces people can use comfortably.</span></div>
+    <div><strong>⚙️ Backends</strong><span>The engine room that keeps apps running.</span></div>
+    <div><strong>🤖 AI/ML</strong><span>Features that recognize, classify, or recommend.</span></div>
+    <div><strong>🐧 Linux/dev tools</strong><span>Clean setups that make development smoother.</span></div>
+  </div>
+</div>`;
+    const playFn = () => `<div class="friendly-card playful-card">
+  <div class="friendly-kicker">Achievement unlocked 🕹️</div>
+  <div class="friendly-title">You found the playful corner.</div>
+  <p>Try <code>cat</code>, <code>cat says hire Vijet</code>, <code>joke</code>, or <code>matrix</code>. If you are short on time, type <code>contact</code> and say hello.</p>
+  <pre>   (づ｡◕‿‿◕｡)づ  thanks for exploring!</pre>
+</div>`;
+    const fastfetchFn = () => {
+        const skills = safeGet(safeInfo, 'skills', []);
+        const projects = safeGet(safeInfo, 'projects', []);
+        const education = safeGet(safeInfo, 'education.0.degree', 'Computer Science');
+        const firstName = safeGet(safeInfo, 'name', 'Developer').split(' ')[0];
+        const stackLine = Array.isArray(skills) ? skills.slice(0, 8).join(' · ') : 'React · APIs · Linux';
+        const projectLine = Array.isArray(projects) ? projects.map(project => project.name).slice(0, 3).join(' / ') : 'Portfolio';
+
+        const logo = String.raw`      /\
+     /  \     ${firstName.toLowerCase()}@portfolio
+    / /\ \    ─────────────────
+   / ____ \   OS      Terminal Portfolio
+  /_/    \_\  Host    ${safeGet(safeInfo, 'location', 'Earth')}
+  \ \  / /     Kernel  React ${React.version}
+   \ \/ /      Shell   portfolio.sh
+    \____/       Role    ${safeGet(safeInfo, 'title', 'Engineer')}`;
+
+        return `<div class="fastfetch-card">
+<pre class="fastfetch-logo">${logo}</pre>
+<div class="fastfetch-info">
+  <div><span>Education</span>${education}</div>
+  <div><span>Stack</span>${stackLine}</div>
+  <div><span>Projects</span>${projectLine}</div>
+  <div><span>Contact</span>${safeGet(safeInfo, 'contact.email', 'N/A')}</div>
+  <div class="fastfetch-palette"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</div>
+</div>`;
     };
     const whoamiText = safeGet(safeInfo, 'whoami', 'Personal information');
     const whoamiFn = function () {
@@ -197,6 +252,21 @@ function getCommands(terminalRef, currentSection, setCurrentSection, personalInf
             usage: 'resume',
             fn: () => [aboutFn(), educationFn(), skillsFn(), experienceFn(), projectsFn(), publicationsFn(), achievementsFn(), contactFn()].join('\n\n')
         },
+        tour: {
+            description: 'Friendly guide for non-technical visitors', usage: 'tour', fn: friendlyTourFn
+        },
+        simple: {
+            description: 'Plain-English overview of what I do', usage: 'simple', fn: simpleFn
+        },
+        play: {
+            description: 'Playful easter eggs and fun prompts', usage: 'play', fn: playFn
+        },
+        fastfetch: {
+            description: 'Beautiful system-style portfolio summary', usage: 'fastfetch', fn: fastfetchFn
+        },
+        neofetch: {
+            description: 'Alias for fastfetch', usage: 'neofetch', fn: fastfetchFn
+        },
         date: {
             description: 'Show current date and time', usage: 'date', fn: () => new Date().toLocaleString()
         },
@@ -260,7 +330,7 @@ function getCommands(terminalRef, currentSection, setCurrentSection, personalInf
                     const catUrl = await fetchCatImage(options);
 
                     if (catUrl) {
-                        return `<div style="text-align: center;"><img src="${catUrl}" alt="Random Cat" onerror="this.onerror=null; this.parentElement.innerHTML='❌ Failed to load cat image. Try again!';" /></div>`;
+                        return `<figure class="cat-frame"><img class="cat-image" src="${catUrl}" alt="Random Cat" onerror="this.onerror=null; this.parentElement.innerHTML='❌ Failed to load cat image. Try again!';" /><figcaption>🐾 Tiny serotonin packet delivered. Try <code>cat says hello</code> too!</figcaption></figure>`;
                     } else {
                         return '❌ Could not fetch cat image. Please try again!';
                     }
@@ -428,13 +498,16 @@ export default function TerminalEmu() {
 
     return (
         <div className="terminal-shell fixed inset-0 flex items-center justify-center animate-fade-in" style={{ minHeight: '100vh', minWidth: '100vw', transition: 'background 0.5s' }}>
-            <div className="w-full h-full flex items-center justify-center relative">
+            <div className="terminal-orb terminal-orb--cyan" aria-hidden="true" />
+            <div className="terminal-orb terminal-orb--violet" aria-hidden="true" />
+            <div className="terminal-scanline" aria-hidden="true" />
+            <div className="w-full h-full flex items-center justify-center relative z-10">
                 <Terminal
                     ref={terminalRef}
                     commands={commands}
                     autoFocus={true}
                     welcomeMessage={
-                        `╭─ ${personalInfo?.name || 'Developer'} · Terminal Portfolio\n│  ${personalInfo?.shortDescription || ''}\n╰─ Type 'help' for commands or 'resume' for the full overview.\n\nTry: whoami · skills · experience · projects · publications · contact\n`
+                        `╭─ ${personalInfo?.name || 'Developer'} · Terminal Portfolio\n│  ${personalInfo?.shortDescription || ''}\n╰─ Type 'help' for commands or 'resume' for the full overview.\n\nNew here? type tour · simple · fastfetch · projects · cat\n`
                     }
                     promptSymbol={'> '}
                     dangerMode={true}
@@ -587,9 +660,11 @@ export default function TerminalEmu() {
                 /* Cat image styling */
                 .react-console-emulator__result img,
                 .react-console-emulator__result div img {
-                    max-width: 100% !important;
+                    max-width: min(100%, 400px) !important;
+                    max-height: 320px !important;
                     width: auto !important;
                     height: auto !important;
+                    object-fit: contain !important;
                     border: 3px solid #38bdf8 !important;
                     border-radius: 8px !important;
                     margin: 20px auto !important;
@@ -614,4 +689,3 @@ export default function TerminalEmu() {
         </div>
     );
 }
-
