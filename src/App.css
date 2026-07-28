@@ -249,7 +249,7 @@
 }
 
 .cat-frame {
-  width: min(100%, 440px);
+  width: min(100%, 360px);
   margin: 1rem auto !important;
   padding: 0.75rem;
   text-align: center;
@@ -266,8 +266,8 @@
 }
 
 .cat-image {
-  max-width: min(100%, 400px) !important;
-  max-height: 320px !important;
+  max-width: min(100%, 320px) !important;
+  max-height: 240px !important;
   width: auto !important;
   height: auto !important;
   object-fit: contain !important;
@@ -308,10 +308,79 @@
   }
 
   .cat-frame {
-    width: min(100%, 340px);
+    width: min(100%, 300px);
   }
 
   .cat-image {
-    max-height: 240px !important;
+    max-height: 200px !important;
   }
+}
+
+.terminal-shell .w-full::before,
+.terminal-shell .w-full::after {
+  content: "0101  build  ship  learn  1010  deploy  debug  create";
+  position: absolute;
+  inset: 8% auto auto 4%;
+  width: 14rem;
+  color: rgba(125, 211, 252, 0.18);
+  font: 700 0.72rem/1.9 'JetBrains Mono', monospace;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  pointer-events: none;
+  animation: data-drift 16s linear infinite;
+}
+
+.terminal-shell .w-full::after {
+  content: "react  linux  ml  api  cloud  git  ux  vim  node";
+  inset: auto 5% 7% auto;
+  color: rgba(196, 181, 253, 0.16);
+  animation-duration: 20s;
+  animation-direction: reverse;
+}
+
+.react-console-emulator {
+  position: relative;
+  isolation: isolate;
+}
+
+.react-console-emulator::after {
+  content: "";
+  position: absolute;
+  inset: 3.1rem 0 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 24%, rgba(34, 211, 238, 0.14), transparent 22%),
+    radial-gradient(circle at 85% 12%, rgba(167, 139, 250, 0.12), transparent 24%),
+    linear-gradient(115deg, transparent 0 43%, rgba(56, 189, 248, 0.06) 44% 46%, transparent 47% 100%);
+  opacity: 0.95;
+}
+
+.fastfetch-info p {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: #d1fae5;
+}
+
+.fastfetch-info div:not(.fastfetch-palette) {
+  padding: 0.35rem 0.45rem;
+  border-radius: 10px;
+  background: rgba(2, 6, 23, 0.28);
+}
+
+@keyframes data-drift {
+  from { transform: translateY(-10%) rotate(-2deg); }
+  to { transform: translateY(10%) rotate(2deg); }
+}
+
+
+.react-console-emulator__content,
+.react-console-emulator__prompt,
+.react-console-emulator__input,
+.react-console-emulator__entry,
+.react-console-emulator__result {
+  position: relative;
+  z-index: 1;
 }
