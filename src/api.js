@@ -10,7 +10,7 @@ export async function fetchProgrammingJoke() {
     if (data.type === "single") return data.joke;
     if (data.type === "twopart") return `${data.setup}\n${data.delivery}`;
     return "No joke found.";
-  } catch (e) {
+  } catch {
     return "Error fetching joke.";
   }
 }
@@ -50,7 +50,7 @@ export async function fetchCatImage(options = {}) {
     
     // Return the URL (will be used to display the image)
     return url;
-  } catch (e) {
+  } catch {
     return null;
   }
 }
