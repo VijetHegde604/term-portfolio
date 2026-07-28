@@ -1,46 +1,130 @@
 {
   "name": "Vijet Hegde",
-  "shortDescription": "A passionate developer!",
-  "fullDescription": "Hi, I am Vijet Hegde, a passionate developer!\nI love building web apps and exploring new tech.",
-  "whoami": " 👋  I'm Vijet Hegde — a passionate Full Stack Web Developer & Linux Enthusiast from India.\nI build fast, interactive web apps and love automating workflows using Docker, DevOps tools, and a touch of code magic.\nSkilled in JavaScript, React, Node.js, Python, Tailwind CSS, REST APIs, and Linux.\nI'm deeply into UI/UX, open source, Free Software, and all things automation. I also try to get my hands on to things like AI and ML \nCurrently working on cool projects, breaking things, fixing them again, and always learning.\n\n📧  vijethegde604@gmail.com\n🔗  linkedin.com/in/vijeth-hegde\n💻  github.com/VijetHegde604\n🚀  Let's connect and create something awesome together!",
+  "title": "Full Stack Engineer Intern · Computer Science Student",
+  "location": "Bengaluru, Karnataka, India",
+  "phone": "+91 9019008348",
+  "shortDescription": "Full-stack engineer building performant APIs, ML-powered products, and reproducible Linux systems.",
+  "fullDescription": "Hi, I am Vijet Hegde — a Computer Science and Engineering student at AMC Engineering College, Bengaluru, and a full-stack engineer focused on backend platforms, developer tooling, and applied machine learning. I build scalable REST APIs with FastAPI and Django REST Framework, ship React and React Native interfaces, optimize PostgreSQL-backed systems, and automate deployment workflows with Git, Docker, Linux, Bash, and CI/CD.\n\nRecently, I worked as a Full Stack Engineer Intern at Dscape.ai Pvt. Ltd., where I architected high-performance APIs, improved database-backed services, debugged legacy bottlenecks, and collaborated with cross-functional teams in an Agile environment. My project work includes GeoGenie, an AI monument history generator using CLIP embeddings and FAISS search, and Review Guard, a fake-review detection platform powered by classical ML pipelines.\n\nI enjoy creating reliable software that feels fast, practical, and easy to maintain.",
+  "whoami": "👋  I'm Vijet Hegde — a Full Stack Engineer Intern, Computer Science student, Linux enthusiast, and applied-ML builder from Bengaluru, India.\n\n🎓  B.E. in Computer Science and Engineering at AMC Engineering College (Dec 2022 – May 2026), CGPA: 7.73.\n💼  Full Stack Engineer Intern at Dscape.ai Pvt. Ltd. (Dec 2025 – Apr 2026), working across FastAPI, Django REST Framework, PostgreSQL, Docker, debugging, code reviews, and Agile delivery.\n🧠  I build backend APIs, React/React Native experiences, ML search/classification systems, and reproducible NixOS developer environments.\n🏆  Best Innovative Idea Award recipient, SRISHTI 2025 presenter, and published researcher in IEEE and IJFMR.\n\n📧  vijethegde604@gmail.com\n📱  +91 9019008348\n🔗  linkedin.com/in/vijeth-hegde\n💻  github.com/VijetHegde604\n🚀  Type projects, experience, education, publications, achievements, or contact to explore more.",
+  "education": [
+    {
+      "institution": "AMC Engineering College",
+      "location": "Bengaluru",
+      "degree": "Bachelor of Engineering in Computer Science and Engineering",
+      "period": "Dec 2022 – May 2026",
+      "details": "CGPA: 7.73"
+    },
+    {
+      "institution": "Chaitanya PU College",
+      "location": "Sirsi",
+      "degree": "Pre-University (PCMB)",
+      "period": "Jun 2020 – Jun 2022",
+      "details": "Physics, Chemistry, Mathematics, Biology"
+    }
+  ],
+  "skillGroups": [
+    { "category": "Programming Languages", "items": ["Python", "Go", "JavaScript"] },
+    { "category": "Backend & APIs", "items": ["FastAPI", "Django", "Django REST Framework", "Node.js", "REST APIs"] },
+    { "category": "Frontend", "items": ["HTML", "CSS", "React", "React Native"] },
+    { "category": "Databases", "items": ["PostgreSQL", "MongoDB", "SQL"] },
+    { "category": "Tools & DevOps", "items": ["Git", "Docker", "Linux (NixOS)", "Bash Scripting", "CI/CD"] },
+    { "category": "Machine Learning", "items": ["PyTorch", "Scikit-Learn", "Pandas", "NumPy", "FAISS", "CLIP embeddings", "TF-IDF", "Gradient Boosting"] }
+  ],
   "skills": [
-    "JavaScript",
-    "React",
-    "Node.js",
-    "CSS",
-    "Tailwind CSS",
-    "Python",
-    "Docker",
-    "DevOps",
-    "Linux",
-    "Git"
+    "Python", "Go", "JavaScript", "FastAPI", "Django", "Django REST Framework", "Node.js", "REST APIs", "HTML", "CSS", "React", "React Native", "PostgreSQL", "MongoDB", "SQL", "Git", "Docker", "Linux (NixOS)", "Bash Scripting", "CI/CD", "PyTorch", "Scikit-Learn", "Pandas", "NumPy", "FAISS"
+  ],
+  "experience": [
+    {
+      "company": "Dscape.ai Pvt. Ltd.",
+      "role": "Full Stack Engineer Intern",
+      "period": "Dec 2025 – Apr 2026",
+      "highlights": [
+        "Architected and deployed high-performance RESTful APIs using FastAPI and Django REST Framework, significantly reducing data retrieval latency.",
+        "Engineered scalable backend services and optimized PostgreSQL schemas to support robust web applications.",
+        "Resolved critical application bottlenecks and debugged legacy code, improving API response times and overall system reliability.",
+        "Streamlined deployment pipelines using Git and Docker, and participated in rigorous code reviews to maintain code quality.",
+        "Collaborated in an Agile environment with cross-functional teams to deliver end-to-end features on schedule."
+      ]
+    }
   ],
   "projects": [
     {
-      "name": "Terminal Portfolio (this!)",
-      "description": "A terminal-style portfolio website",
-      "githubUrl": "https://github.com/VijetHegde604/term-portfolio",
+      "name": "GeoGenie – AI Monument History Generator",
+      "date": "Nov 2025",
+      "description": "Containerized full-stack mobile application that identifies monuments from images and generates dynamic historical narratives.",
+      "highlights": [
+        "Integrated a React Native frontend with a high-performance FastAPI backend.",
+        "Used PyTorch-based CLIP embeddings with FAISS similarity search for accurate real-time image recognition.",
+        "Engineered low-latency REST APIs for monument identification and narrative generation.",
+        "Designed normalized PostgreSQL schemas to store, manage, and query historical data."
+      ],
+      "techStack": ["Python", "FastAPI", "PostgreSQL", "Docker", "React Native", "PyTorch", "FAISS"],
+      "githubUrl": "https://github.com/VijetHegde604/GeoGenie-backend",
       "demoUrl": ""
     },
     {
-      "name": "Review Guard",
-      "description": "Fake Review Detection using Machine Learning",
+      "name": "Review Guard – Fake Review Detection Platform",
+      "date": "Nov 2024",
+      "description": "Full-stack web application for real-time synthetic review detection and analysis.",
+      "highlights": [
+        "Built the web experience with React and Node.js for real-time fraudulent-review analysis.",
+        "Developed and trained ML pipelines using TF-IDF and Gradient Boosting ensemble models to classify fraudulent text.",
+        "Exposed predictive models via scalable REST APIs for frontend dashboard integration.",
+        "Containerized the application with Docker for consistent deployment and rapid scalability."
+      ],
+      "techStack": ["React", "Node.js", "Python", "Docker", "PostgreSQL", "Scikit-Learn"],
       "githubUrl": "https://github.com/VijetHegde604/fake-review-detection",
       "demoUrl": ""
     },
     {
-      "name": "GeoGenie",
-      "description": "An AI-Powered Geographical Information System",
-      "githubUrl": "https://github.com/VijetHegde604/GeoGenie",
+      "name": "NixOS System Architecture & Dotfiles",
+      "date": "Ongoing",
+      "description": "Reproducible, declarative Linux operating-system configuration for development workflows.",
+      "highlights": [
+        "Architected a Nix Flakes and Home Manager setup for isolated, immutable system states.",
+        "Automated developer environment provisioning and system package management."
+      ],
+      "techStack": ["NixOS", "Nix Flakes", "Home Manager", "Linux", "Bash"],
+      "githubUrl": "https://github.com/VijetHegde604/nixos-config",
+      "demoUrl": ""
+    },
+    {
+      "name": "Terminal Portfolio",
+      "date": "Current",
+      "description": "Interactive terminal-style portfolio that presents resume details through command-driven navigation.",
+      "highlights": ["Built with React, Vite, and react-console-emulator."],
+      "techStack": ["React", "Vite", "JavaScript", "CSS"],
+      "githubUrl": "https://github.com/VijetHegde604/term-portfolio",
       "demoUrl": ""
     }
   ],
+  "publications": [
+    {
+      "title": "ML-Powered Platform for Real-Time Historical Site Identification and Narrative Generation using Deep Learning",
+      "venue": "IEEE",
+      "date": "Dec 2025",
+      "doi": "10.1109/INSPIRE67328.2025.11300486"
+    },
+    {
+      "title": "Deducing Synthetic Reviews Using Gradient-Boosting Technique",
+      "venue": "IJFMR",
+      "date": "Nov 2024",
+      "doi": "10.36948/ijfmr.2024.v06i06.34356"
+    }
+  ],
+  "achievements": [
+    "Recipient of the Best Innovative Idea Award at a National-Level Ideathon hosted by AVIT Chennai.",
+    "Presented GeoGenie at the SRISHTI 2025 State-Level Project Exhibition, Acharya Institute of Technology.",
+    "Published original research in peer-reviewed IEEE and IJFMR journals."
+  ],
   "contact": {
     "email": "vijethegde604@gmail.com",
+    "phone": "+91 9019008348",
     "linkedin": "https://linkedin.com/in/vijeth-hegde",
-    "github": "https://github.com/VijetHegde604"
+    "github": "https://github.com/VijetHegde604",
+    "portfolio": ""
   },
   "commands": {
-    "suggestions": ["help", "cat", "whoami", "about", "projects", "contact"]
+    "suggestions": ["help", "whoami", "about", "skills", "experience", "education", "projects", "publications", "achievements", "contact", "resume"]
   }
 }

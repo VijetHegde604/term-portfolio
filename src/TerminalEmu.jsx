@@ -25,14 +25,55 @@ function getCommands(terminalRef, currentSection, setCurrentSection, personalInf
     };
 
     const dirs = {
-        root: ['about', 'skills', 'projects', 'contact', 'cat', 'matrix', 'joke'],
-        about: [], skills: [], projects: [], contact: [], cat: [], matrix: [], joke: [],
+        root: ['about', 'education', 'skills', 'experience', 'projects', 'publications', 'achievements', 'contact', 'resume', 'cat', 'matrix', 'joke'],
+        about: [], education: [], skills: [], experience: [], projects: [], publications: [], achievements: [], contact: [], resume: [], cat: [], matrix: [], joke: [],
     };
     function getLs(section) {
         if (dirs[section]) return dirs[section].map(x => x + (dirs[x] && dirs[x].length ? '/' : '')).join('  ') || '(empty)';
         return '(empty)';
     }
-    const aboutFn = () => safeGet(safeInfo, 'fullDescription', 'About section');
+    const link = (href, label = href) => `<a href="${href}" target="_blank">${label}</a>`;
+    const list = (items = []) => items.map(item => `• ${item}`).join('\n');
+    const section = (title, body) => `<span class="term-heading">${title}</span>\n${body}`;
+    const aboutFn = () => section('About', safeGet(safeInfo, 'fullDescription', 'About section'));
+    const educationFn = () => {
+        const education = safeGet(safeInfo, 'education', []);
+        return section('Education', education.map(item => `• <strong>${item.institution}</strong>, ${item.location} — ${item.degree} (${item.period})${item.details ? `\n  ${item.details}` : ''}`).join('\n\n'));
+    };
+    const skillsFn = () => {
+        const groups = safeGet(safeInfo, 'skillGroups', []);
+        if (Array.isArray(groups) && groups.length) {
+            return section('Skills', groups.map(group => `• <strong>${group.category}</strong>: ${group.items.join(', ')}`).join('\n'));
+        }
+        const skills = safeGet(safeInfo, 'skills', []);
+        const skillsArray = Array.isArray(skills) ? skills : [];
+        return section('Skills', skillsArray.map(skill => `• ${skill}`).join('\n'));
+    };
+    const experienceFn = () => {
+        const experience = safeGet(safeInfo, 'experience', []);
+        return section('Experience', experience.map(job => `<strong>${job.company}</strong> — ${job.role} (${job.period})\n${list(job.highlights)}`).join('\n\n'));
+    };
+    const projectsFn = () => {
+        const projects = safeGet(safeInfo, 'projects', []);
+        const projectsArray = Array.isArray(projects) ? projects : [];
+        return section('Projects', projectsArray.map(project => {
+            const name = project?.name || 'Untitled Project';
+            const githubUrl = project?.githubUrl || '#';
+            const tech = project?.techStack?.length ? `\n  Tech: ${project.techStack.join(', ')}` : '';
+            const bullets = project?.highlights?.length ? `\n${project.highlights.map(point => `  - ${point}`).join('\n')}` : '';
+            const demo = project?.demoUrl ? ` | ${link(project.demoUrl, 'Demo')}` : '';
+            return `<strong>${name}</strong> (${project.date || 'Current'})\n  ${project.description || ''}${bullets}${tech}\n  ${link(githubUrl, 'GitHub')}${demo}`;
+        }).join('\n\n'));
+    };
+    const publicationsFn = () => section('Publications', safeGet(safeInfo, 'publications', []).map(pub => `• <strong>${pub.title}</strong> — ${pub.venue}, ${pub.date}\n  DOI: ${pub.doi}`).join('\n\n'));
+    const achievementsFn = () => section('Achievements', list(safeGet(safeInfo, 'achievements', [])));
+    const contactFn = () => {
+        const email = safeGet(safeInfo, 'contact.email', 'N/A');
+        const linkedin = safeGet(safeInfo, 'contact.linkedin', '#');
+        const github = safeGet(safeInfo, 'contact.github', '#');
+        const phone = safeGet(safeInfo, 'contact.phone', 'N/A');
+        return section('Contact', `• Email: <a href="mailto:${email}">${email}</a>\n• Phone: ${phone}\n• LinkedIn: ${link(linkedin, 'linkedin.com/in/vijeth-hegde')}\n• GitHub: ${link(github, 'github.com/VijetHegde604')}`);
+    };
     const whoamiText = safeGet(safeInfo, 'whoami', 'Personal information');
     const whoamiFn = function () {
         const id = `whoami-anim-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
@@ -114,41 +155,47 @@ function getCommands(terminalRef, currentSection, setCurrentSection, personalInf
         whoami: {
             description: 'Show all details about me', usage: 'whoami', fn: whoamiFn
         },
+        education: {
+            description: 'Show education details',
+            usage: 'education',
+            fn: educationFn
+        },
         skills: {
-            description: 'List of my skills',
+            description: 'List of my skills by category',
             usage: 'skills',
-            fn: () => {
-                const skills = safeGet(safeInfo, 'skills', []);
-                const skillsArray = Array.isArray(skills) ? skills : [];
-                return `Skills:\n${skillsArray.map(skill => `- ${skill}`).join('\n')}`;
-            }
+            fn: skillsFn
+        },
+        experience: {
+            description: 'Show professional experience',
+            usage: 'experience',
+            fn: experienceFn
         },
         projects: {
             description: 'Showcase my projects',
             usage: 'projects',
-            fn: () => {
-                const projects = safeGet(safeInfo, 'projects', []);
-                const projectsArray = Array.isArray(projects) ? projects : [];
-                return `Projects:\n${projectsArray.map(project => {
-                    const name = project?.name || 'Untitled Project';
-                    const githubUrl = project?.githubUrl || '#';
-                    const description = project?.description || '';
-                    let html = `- <a href=\"${githubUrl}\" target=\"_blank\" style='color: #38bdf8; cursor: pointer; text-decoration: underline;'>${name}</a>`;
-                    if (description) html += `: ${description}`;
-                    if (project?.demoUrl) html += ` [<a href=\"${project.demoUrl}\" target=\"_blank\" style='color: #aaffaa; cursor: pointer;'>Demo</a>]`;
-                    return html;
-                }).join('\n')}`;
-            }
+            fn: projectsFn
         },
         contact: {
             description: 'Contact information',
             usage: 'contact',
-            fn: () => {
-                const email = safeGet(safeInfo, 'contact.email', 'N/A');
-                const linkedin = safeGet(safeInfo, 'contact.linkedin', '#');
-                const github = safeGet(safeInfo, 'contact.github', '#');
-                return `Contact me at:\n- Email: <a href=\"mailto:${email}\" style='color: #38bdf8; cursor: pointer; text-decoration: underline;'>${email}</a>\n- LinkedIn: <a href=\"${linkedin}\" target=\"_blank\" style='color: #38bdf8; cursor: pointer; text-decoration: underline;'>linkedin.com/in/vijeth-hegde</a>\n- GitHub: <a href=\"${github}\" target=\"_blank\" style='color: #38bdf8; cursor: pointer; text-decoration: underline;'>github.com/VijetHegde604</a>`;
-            }
+            fn: contactFn
+        },
+
+
+        publications: {
+            description: 'Show publications',
+            usage: 'publications',
+            fn: publicationsFn
+        },
+        achievements: {
+            description: 'Show achievements',
+            usage: 'achievements',
+            fn: achievementsFn
+        },
+        resume: {
+            description: 'Show a concise resume overview',
+            usage: 'resume',
+            fn: () => [aboutFn(), educationFn(), skillsFn(), experienceFn(), projectsFn(), publicationsFn(), achievementsFn(), contactFn()].join('\n\n')
         },
         date: {
             description: 'Show current date and time', usage: 'date', fn: () => new Date().toLocaleString()
@@ -380,18 +427,18 @@ export default function TerminalEmu() {
     }, []);
 
     return (
-        <div className="fixed inset-0 bg-black flex items-center justify-center animate-fade-in" style={{ minHeight: '100vh', minWidth: '100vw', transition: 'background 0.5s' }}>
+        <div className="terminal-shell fixed inset-0 flex items-center justify-center animate-fade-in" style={{ minHeight: '100vh', minWidth: '100vw', transition: 'background 0.5s' }}>
             <div className="w-full h-full flex items-center justify-center relative">
                 <Terminal
                     ref={terminalRef}
                     commands={commands}
                     autoFocus={true}
                     welcomeMessage={
-                        `Welcome to ${personalInfo?.name || 'Developer'}'s Terminal Portfolio!\n\nType 'help' to get the list of commands.\n\nType 'whoami' to get all the details about me.\n\n Enjoy exploring! 🚀\n\n`
+                        `╭─ ${personalInfo?.name || 'Developer'} · Terminal Portfolio\n│  ${personalInfo?.shortDescription || ''}\n╰─ Type 'help' for commands or 'resume' for the full overview.\n\nTry: whoami · skills · experience · projects · publications · contact\n`
                     }
                     promptSymbol={'> '}
                     dangerMode={true}
-                    style={{ background: 'black', color: 'lime', fontFamily: 'monospace', width: '100vw', height: '100vh', borderRadius: 0, transition: 'background 0.5s' }}
+                    style={{ background: 'rgba(2, 6, 23, 0.92)', color: '#bbf7d0', fontFamily: 'monospace', width: 'min(1120px, calc(100vw - 32px))', height: 'min(760px, calc(100vh - 32px))', borderRadius: 18, border: '1px solid rgba(56, 189, 248, 0.35)', boxShadow: '0 28px 90px rgba(0,0,0,.55), 0 0 60px rgba(56,189,248,.16)', transition: 'background 0.5s' }}
                 />
                 {/* Autocomplete suggestions */}
                 {showSuggestions && suggestions.length > 0 && (
